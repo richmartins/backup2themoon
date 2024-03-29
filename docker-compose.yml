@@ -10,17 +10,16 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=${ROOT_DB_PWD}
 
-  backup:
-    container_name: backup
-    image: b3vis/borgmatic:latest
+  s3sync-service:
+    image: ghcr.io/mazay/s3sync-service:master
+    environment:
+      - ACCESS_KEY=${ACCESS_KEY}
+      - SECRET_ACCESS_KEY=${SECRET_ACCESS_KEY}
+      - AWS_REGION=${AWS_REGION}
+      - BUCKET_REGION=${BUCKET_REGION}
     volumes:
-      - ./config/backup.yml:/etc/borgmatic/config.yaml
-    # healthcheck:
-    #   test: ["borgmatic", "config", validate"]
-    #   interval: 1m30s
-    #   timeout: 30s
-    #   retries: 5
-    #   start_period: 30s
+      - '/backup:/backup'
+      - './config/backup.yml:/app/config.yml'
 
 volumes:
   db_data:

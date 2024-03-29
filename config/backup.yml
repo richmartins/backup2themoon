@@ -1,8 +1,10 @@
-source_directories:
-    - /etc
-
-repositories:
-    # - path: ssh://user@backupserver/./sourcehostname.borg
-    #   label: backupserver
-    - path: /mnt/backup
-      label: local
+loglevel: info
+upload_workers: 5
+checksum_workers: 5
+watch_interval: 30s
+s3_ops_retries: 3
+sites:
+- name: infomaniak
+  local_path: /
+  bucket: backup2themoon-test
+  endpoint: s3.pub1.infomaniak.cloud

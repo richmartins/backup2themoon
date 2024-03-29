@@ -1,0 +1,26 @@
+services:
+
+  db:
+    container_name: db
+    image: mariadb:latest
+    ports:
+      - 3306:3306
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${ROOT_DB_PWD}
+
+  backup:
+    container_name: backup
+    image: b3vis/borgmatic:latest
+    volumes:
+      - ./config/backup.yml:/etc/borgmatic/config.yaml
+    # healthcheck:
+    #   test: ["borgmatic", "config", validate"]
+    #   interval: 1m30s
+    #   timeout: 30s
+    #   retries: 5
+    #   start_period: 30s
+
+volumes:
+  db_data:

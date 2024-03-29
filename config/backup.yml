@@ -1,0 +1,8 @@
+source_directories:
+    - /etc
+
+repositories:
+    # - path: ssh://user@backupserver/./sourcehostname.borg
+    #   label: backupserver
+    - path: /mnt/backup
+      label: local

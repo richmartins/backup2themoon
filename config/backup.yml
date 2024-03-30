@@ -1,4 +1,4 @@
-loglevel: info
+loglevel: trace
 upload_workers: 5
 checksum_workers: 5
 watch_interval: 30s

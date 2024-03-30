@@ -5,6 +5,6 @@ watch_interval: 30s
 s3_ops_retries: 3
 sites:
 - name: infomaniak
-  local_path: /
+  local_path: /etc/
   bucket: backup2themoon-test
   endpoint: s3.pub1.infomaniak.cloud

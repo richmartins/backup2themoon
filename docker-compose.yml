@@ -1,5 +1,4 @@
 services:
-
   db:
     container_name: db
     image: mariadb:latest
@@ -10,16 +9,15 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=${ROOT_DB_PWD}
 
-  s3sync-service:
-    image: ghcr.io/mazay/s3sync-service:master
+  s3-service:
+    container_name: s3
+    image: public.ecr.aws/aws-cli/aws-cli
     environment:
-      - ACCESS_KEY=${ACCESS_KEY}
-      - SECRET_ACCESS_KEY=${SECRET_ACCESS_KEY}
-      - AWS_REGION=${AWS_REGION}
-      - BUCKET_REGION=${BUCKET_REGION}
+      - AWS_ACCESS_KEY_ID=${ACCESS_KEY}
+      - AWS_SECRET_ACCESS_KEY=${SECRET_ACCESS_KEY}
+      - AWS_DEFAULT_REGION=${REGION}
     volumes:
-      - '/backup:/backup'
-      - './config/backup.yml:/app/config.yml'
-
+      - 'db_data:/backup'
+    command: s3 sync --endpoint-url=${S3_ENDPOINT} /backup s3://${BUCKET_NAME}
 volumes:
   db_data:

@@ -29,11 +29,11 @@ Backup2themoon demonstrates a proof of concept for a backup strategy where a clo
 
 1. create cred
 
-        ec2 credentials create
+        (openstack) ec2 credentials create
 
 1. List credential
 
-        ec2 credentials list
+        (openstack) ec2 credentials list
 
 
 ### Connection with awscli
